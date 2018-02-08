@@ -196,20 +196,20 @@ public class TasksActivity extends AppCompatActivity implements LoaderManager.Lo
         Boolean checked = checkBox.isChecked();
         int id = view.getId();
 
-//        String idString = Integer.toString(id);
-//        Uri uri = (TaskContract.TaskEntry.CONTENT_URI).buildUpon().appendPath(idString).build();
+        String idString = Integer.toString(id);
+        Uri uri = (TaskContract.TaskEntry.CONTENT_URI).buildUpon().appendPath(idString).build();
 
-//        Cursor cursor = getContentResolver().query(uri,null, null,null,null);
+        Cursor cursor = getContentResolver().query(uri,null, null,null,null);
 
-//
-//        String description = taskDescriptionView.getText().toString();
-//        String priority = priorityView.getText().toString();
 
-//        ContentValues contentValues = new ContentValues();
-////        // Put the task description and selected mPriority into the ContentValues
-//        contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
-//        contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, priority);
-//        contentValues.put(TaskContract.TaskEntry.COLUMN_COMPLETED, checked);
+        String description = taskDescriptionView.getText().toString();
+        String priority = priorityView.getText().toString();
+
+        ContentValues contentValues = new ContentValues();
+//        // Put the task description and selected mPriority into the ContentValues
+        contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
+        contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, priority);
+        contentValues.put(TaskContract.TaskEntry.COLUMN_COMPLETED, checked);
 
 
         // Finish activity (this returns back to MainActivity)
