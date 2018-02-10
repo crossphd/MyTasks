@@ -5,15 +5,18 @@ package com.crossphd.mytasks;
  */
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,14 +58,33 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
 
         // Determine the values of the wanted data
         final int id = mCursor.getInt(idIndex);
-        String description = mCursor.getString(descriptionIndex);
-        int priority = mCursor.getInt(priorityIndex);
+        final String idString = Integer.toString(id);
+        final String description = mCursor.getString(descriptionIndex);
+        final int priority = mCursor.getInt(priorityIndex);
         boolean completed = mCursor.getInt(completedIndex) != 0;
 
         //Set values
         holder.itemView.setTag(id);
         holder.taskDescriptionView.setText(description);
         holder.completedView.setChecked(completed);
+
+        holder.completedView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                Uri uri = (TaskContract.TaskEntry.CONTENT_URI).buildUpon().appendPath(idString).build();
+
+                ContentValues contentValues = new ContentValues();
+                contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
+                contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, priority);
+                contentValues.put(TaskContract.TaskEntry.COLUMN_COMPLETED, isChecked);
+//                int returned = getContentResolver().update(uri, contentValues, null, null);
+
+                if (isChecked){
+                    Toast.makeText(buttonView.getContext(), "description: " + description + " isClicked: " + isChecked, Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
         // Programmatically set the text and color for the priority TextView
@@ -143,5 +165,7 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
             priorityView = (TextView) itemView.findViewById(R.id.priorityTextView);
             completedView = (CheckBox) itemView.findViewById(R.id.completed);
         }
+
+
     }
 }
