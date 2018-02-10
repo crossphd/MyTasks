@@ -24,7 +24,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         // Initialize to highest mPriority by default (mPriority = 2)
-        ((RadioButton) findViewById(R.id.radButton1)).setChecked(true);
+        ((RadioButton) findViewById(R.id.radButton2)).setChecked(true);
         mPriority = 2;
         mCompleted = false;
     }
