@@ -78,11 +78,8 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
                 contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
                 contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, priority);
                 contentValues.put(TaskContract.TaskEntry.COLUMN_COMPLETED, isChecked);
-//                int returned = getContentResolver().update(uri, contentValues, null, null);
-
-                if (isChecked){
-                    Toast.makeText(buttonView.getContext(), "description: " + description + " isClicked: " + isChecked, Toast.LENGTH_LONG).show();
-                }
+                Context context = buttonView.getContext();
+                int returned = context.getContentResolver().update(uri, contentValues, null, null);
             }
         });
 
