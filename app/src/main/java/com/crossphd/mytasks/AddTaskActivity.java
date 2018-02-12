@@ -23,6 +23,10 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
+
         // Initialize to highest mPriority by default (mPriority = 2)
         ((RadioButton) findViewById(R.id.radButton2)).setChecked(true);
         mPriority = 2;

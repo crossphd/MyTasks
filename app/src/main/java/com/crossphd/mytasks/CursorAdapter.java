@@ -8,6 +8,7 @@ package com.crossphd.mytasks;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.support.v4.content.ContextCompat;
@@ -50,7 +51,7 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
 
         // Indices for the _id, description, and priority columns
         int idIndex = mCursor.getColumnIndex(TaskContract.TaskEntry._ID);
-        int descriptionIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
+        final int descriptionIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_DESCRIPTION);
         int priorityIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_PRIORITY);
         int completedIndex = mCursor.getColumnIndex(TaskContract.TaskEntry.COLUMN_COMPLETED);
 
@@ -65,12 +66,19 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
 
         //Set values
         holder.itemView.setTag(id);
-        holder.taskDescriptionView.setText(description);
+        final TextView descriptionTextView = (TextView) holder.taskDescriptionView;
+        descriptionTextView.setText(description);
         holder.completedView.setChecked(completed);
 
         holder.completedView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(isChecked){
+                    descriptionTextView.setPaintFlags(descriptionTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+                } else {
+                    descriptionTextView.setPaintFlags(descriptionTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+                }
 
                 Uri uri = (TaskContract.TaskEntry.CONTENT_URI).buildUpon().appendPath(idString).build();
 

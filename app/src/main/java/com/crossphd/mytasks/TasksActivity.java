@@ -23,16 +23,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class TasksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     // Constants for logging and referring to a unique loader
     private static final String TAG = TasksActivity.class.getSimpleName();
     private static final int TASK_LOADER_ID = 0;
-
     private CursorAdapter mAdapter;
     private CheckBox mCheckBox;
-
-
     RecyclerView mRecyclerView;
 
     @Override
@@ -45,6 +43,10 @@ public class TasksActivity extends AppCompatActivity implements LoaderManager.Lo
         mAdapter = new CursorAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
         mCheckBox = (CheckBox) findViewById(R.id.completed);
+
+        getSupportActionBar().setDisplayUseLogoEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.drawable.logo);
 
          /*
          Add a touch helper to the RecyclerView to recognize when a user swipes to delete an item.
