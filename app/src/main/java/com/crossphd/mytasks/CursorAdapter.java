@@ -80,16 +80,24 @@ public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHo
                     descriptionTextView.setPaintFlags(descriptionTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 }
 
+                String newDescription = descriptionTextView.getText().toString();
+
                 Uri uri = (TaskContract.TaskEntry.CONTENT_URI).buildUpon().appendPath(idString).build();
 
                 ContentValues contentValues = new ContentValues();
-                contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, description);
+                contentValues.put(TaskContract.TaskEntry.COLUMN_DESCRIPTION, newDescription);
                 contentValues.put(TaskContract.TaskEntry.COLUMN_PRIORITY, priority);
                 contentValues.put(TaskContract.TaskEntry.COLUMN_COMPLETED, isChecked);
                 Context context = buttonView.getContext();
                 int returned = context.getContentResolver().update(uri, contentValues, null, null);
             }
         });
+
+        if(holder.completedView.isChecked()){
+            descriptionTextView.setPaintFlags(descriptionTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        } else {
+            descriptionTextView.setPaintFlags(descriptionTextView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
+        }
 
 
         // Programmatically set the text and color for the priority TextView
