@@ -33,11 +33,6 @@ public class AddTaskActivity extends AppCompatActivity {
         mCompleted = false;
     }
 
-
-    /**
-     * onClickAddTask is called when the "ADD" button is clicked.
-     * It retrieves user input and inserts that new task data into the underlying database.
-     */
     public void onClickAddTask(View view) {
 
         String input = ((EditText) findViewById(R.id.editTextTaskDescription)).getText().toString();
@@ -65,11 +60,6 @@ public class AddTaskActivity extends AppCompatActivity {
 
     }
 
-
-    /**
-     * onPrioritySelected is called whenever a priority button is clicked.
-     * It changes the value of mPriority based on the selected button.
-     */
     public void onPrioritySelected(View view) {
         if (((RadioButton) findViewById(R.id.radButton1)).isChecked()) {
             mPriority = 1;

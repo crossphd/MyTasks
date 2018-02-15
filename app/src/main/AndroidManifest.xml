@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.crossphd.mytasks"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:versionCode="1"
+    android:versionName="1.0">
 
     <application
         android:allowBackup="true"
@@ -9,7 +10,6 @@
         android:icon="@drawable/logo"
         android:roundIcon="@drawable/logo_android_gray55px"
         android:supportsRtl="true"
-        app:contentInsetStart="100dp"
         android:theme="@style/AppTheme">
         <activity android:name=".TasksActivity">
             <intent-filter>

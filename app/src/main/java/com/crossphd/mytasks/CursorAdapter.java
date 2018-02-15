@@ -21,10 +21,6 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-/**
- * This CustomCursorAdapter creates and binds ViewHolders, that hold the description and priority of a task,
- * to a RecyclerView to efficiently display data.
- */
 public class CursorAdapter extends RecyclerView.Adapter<CursorAdapter.TaskViewHolder> {
 
     // Class variables for the Cursor that holds task data and the Context
