@@ -7,5 +7,5 @@ An android To-Do list app where you can specify a priority and mark tasks comple
 Christopher Ross
 
 <div align="center">
-  <img src="https://github.com/crossphd/ImageRepo/blob/master/projects/mytasks2.jpg?raw=true" />
+  <img src="https://github.com/crossphd/ImageRepo/blob/master/projects/mytasks_combined.jpg?raw=true" />
 </div>
