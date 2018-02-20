@@ -1,8 +1,6 @@
 package com.crossphd.mytasks;
 
 import android.annotation.SuppressLint;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -18,10 +16,7 @@ import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.TableRow;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.FrameLayout;
 
 
 public class TasksActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -30,19 +25,26 @@ public class TasksActivity extends AppCompatActivity implements LoaderManager.Lo
     private static final String TAG = TasksActivity.class.getSimpleName();
     private static final int TASK_LOADER_ID = 0;
     private CursorAdapter mAdapter;
-    private CheckBox mCheckBox;
-    RecyclerView mRecyclerView;
+    private CursorAdapter mAdapter2;
+    RecyclerView mRVActiveTasks;
+    RecyclerView mRVCompletedTasks;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerViewTasks);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRVActiveTasks = (RecyclerView) findViewById(R.id.rv_active_tasks);
+        mRVActiveTasks.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new CursorAdapter(this);
-        mRecyclerView.setAdapter(mAdapter);
-        mCheckBox = (CheckBox) findViewById(R.id.completed);
+        mRVActiveTasks.setAdapter(mAdapter);
+
+        mRVCompletedTasks = (RecyclerView) findViewById(R.id.rv_completed_tasks);
+        mRVCompletedTasks.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter2 = new CursorAdapter(this);
+        mRVCompletedTasks.setAdapter(mAdapter2);
+
+        CheckBox mCheckBox = (CheckBox) findViewById(R.id.completed);
 
         getSupportActionBar().setDisplayUseLogoEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -62,7 +64,7 @@ public class TasksActivity extends AppCompatActivity implements LoaderManager.Lo
                 getContentResolver().delete(uri, null, null);
                 getSupportLoaderManager().restartLoader(TASK_LOADER_ID, null, TasksActivity.this);
             }
-        }).attachToRecyclerView(mRecyclerView);
+        }).attachToRecyclerView(mRVCompletedTasks);
 
         /*
          Set the Floating Action Button (FAB) to its corresponding View.
@@ -138,10 +140,12 @@ public class TasksActivity extends AppCompatActivity implements LoaderManager.Lo
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
         // Update the data that the adapter uses to create ViewHolders
         mAdapter.swapCursor(data);
+        mAdapter2.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         mAdapter.swapCursor(null);
+        mAdapter2.swapCursor(null);
     }
 }
